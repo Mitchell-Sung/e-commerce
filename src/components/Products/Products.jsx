@@ -1,6 +1,7 @@
 import React from 'react';
+import useStyles from './products.styles';
 import { Grid } from '@material-ui/core';
-import Product from '../product/Product';
+import Product from '../Product/Product';
 import img_xps13 from '../../assets/images/xps13.jpg';
 import img_xps15 from '../../assets/images/xps15.jpg';
 import img_xps17 from '../../assets/images/xps17.jpg';
@@ -54,8 +55,11 @@ const products = [
 ];
 
 const Products = () => {
+	const classes = useStyles();
+
 	return (
-		<main>
+		<main className={classes.content}>
+			<div className={classes.toolbar} />
 			<Grid container justify='center' spacing={4}>
 				{products.map((product) => (
 					<Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
