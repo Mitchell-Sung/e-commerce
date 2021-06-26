@@ -10,12 +10,8 @@ import {
 	IconButton,
 } from '@material-ui/core';
 
-// product from Products.jsx file.
-const Product = ({ product }) => {
+const Product = ({ product, onAddToCart }) => {
 	const classes = useStyles();
-
-	// product data from commerceJs library.
-	console.log('product :>> ', product);
 
 	return (
 		<Card className={classes.root}>
@@ -40,7 +36,10 @@ const Product = ({ product }) => {
 				/>
 			</CardContent>
 			<CardActions disableSpacing className={classes.cardActions}>
-				<IconButton aria-label='Add to Cart'>
+				<IconButton
+					aria-label='Add to Cart'
+					onClick={() => onAddToCart(product.id, 1)}
+				>
 					<AddShoppingCart />
 				</IconButton>
 			</CardActions>
