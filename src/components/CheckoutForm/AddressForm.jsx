@@ -19,6 +19,7 @@ const AddressForm = ({ checkoutToken, next }) => {
 	const [shippingSubdivision, setShippingSubdivision] = useState('');
 	const [shippingOptions, setShippingOptions] = useState([]);
 	const [shippingOption, setShippingOption] = useState('');
+
 	const methods = useForm();
 
 	const countries = Object.entries(shippingCountries).map(([code, name]) => ({
@@ -107,7 +108,6 @@ const AddressForm = ({ checkoutToken, next }) => {
 						<FormInput name='email' label='Email' />
 						<FormInput name='city' label='City' />
 						<FormInput name='zip' label='ZIP / Postal code' />
-
 						<Grid item xs={12} sm={6}>
 							<InputLabel>Shipping Country</InputLabel>
 							<Select
@@ -122,7 +122,6 @@ const AddressForm = ({ checkoutToken, next }) => {
 								))}
 							</Select>
 						</Grid>
-
 						<Grid item xs={12} sm={6}>
 							<InputLabel>Shipping Subdivision</InputLabel>
 							<Select
@@ -137,7 +136,6 @@ const AddressForm = ({ checkoutToken, next }) => {
 								))}
 							</Select>
 						</Grid>
-
 						<Grid item xs={12} sm={6}>
 							<InputLabel>Shipping Options</InputLabel>
 							<Select

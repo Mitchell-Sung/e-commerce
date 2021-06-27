@@ -16,15 +16,19 @@ const PaymentForm = ({
 	onCaptureCheckout,
 	nextStep,
 	shippingData,
+	timeout,
 }) => {
 	const handleSubmit = async (event, elements, stripe) => {
 		event.preventDefault();
+
 		if (!stripe || !elements) return;
+
 		const cardElement = elements.getElemnt(CardElement);
 		const { error, paymentMethod } = await stripe.createPyamentMethod({
 			type: 'card',
 			card: cardElement,
 		});
+
 		if (error) {
 			console.error(error);
 		} else {
@@ -50,6 +54,7 @@ const PaymentForm = ({
 				},
 			};
 			onCaptureCheckout(checkoutToken.id, orderData);
+			timeout();
 			nextStep();
 		}
 	};
