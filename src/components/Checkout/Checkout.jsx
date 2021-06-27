@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import AddressForm from '../CheckoutForm/AddressForm';
 import PaymentForm from '../CheckoutForm/PaymentForm';
 import useStyles from './checkout.styles';
@@ -19,8 +20,11 @@ const steps = ['Shipping address', 'Payment details'];
 
 const Checkout = ({ cart }) => {
 	const classes = useStyles();
+	const history = useHistory();
+
 	const [activeStep, setActiveStep] = useState(0);
 	const [checkoutToken, setCheckoutToken] = useState(null);
+	const [shippingData, setShippingData] = useState({});
 
 	useEffect(() => {
 		const generateToken = async () => {
@@ -28,7 +32,6 @@ const Checkout = ({ cart }) => {
 				const token = await commerce.checkout.generateToken(cart.id, {
 					type: 'cart',
 				});
-				console.log('CHECKOUT CONSOLE :>> ', token);
 				setCheckoutToken(token);
 			} catch (error) {
 				console.error(error);
@@ -37,15 +40,23 @@ const Checkout = ({ cart }) => {
 		generateToken();
 	}, [cart]);
 
+	const nextStep = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
+	const backStep = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
+
+	const next = (data) => {
+		setShippingData(data);
+		nextStep();
+	};
+
 	const Confirmation = () => {
 		<div>Confirmation</div>;
 	};
 
 	const Form = () =>
 		activeStep === 0 ? (
-			<AddressForm checkoutToken={checkoutToken} />
+			<AddressForm checkoutToken={checkoutToken} next={next} />
 		) : (
-			<PaymentForm />
+			<PaymentForm shippingData={shippingData} />
 		);
 
 	return (
